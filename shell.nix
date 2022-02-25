@@ -42,18 +42,19 @@ unix_socket_directories = '$PGHOST'
 EOF
 
 # ...create a database using the name Postgres defaults to.
-echo "CREATE DATABASE postgres;" | postgres --single -E postgres
-echo "CREATE USER postgres --createdb;" | postgres --single -E postgres
+echo "CREATE USER postgres SUPERUSER;" | postgres --single -E postgres
+echo "CREATE DATABASE postgres WITH OWNER postgres;" | postgres --single -E postgres
 fi
 
 postgres &
 
 ## command to access the db after start
-# psql -h localhost -p 5432 postgres postgres
+# psql -h localhost postgres
 
 ## command to kill the db 
 # pg_ctl -D ./db stop
 
 trap "pg_ctl -D ./db stop" EXIT
+
     '';
 }
