@@ -29,15 +29,18 @@ mkShell {
 shellHook = ''
 
 # init the db with 
-mkdir -p ./db/
+# mkdir -p ./db/
 export PGDATA="$(pwd)/db"
 export PGHOST="$(pwd)"
+export PGPORT="5432"
+
 if [[ ! $(grep listen_address $PGDATA/postgresql.conf) ]]; then
 echo "db does not exist, creating "
-initdb
+initdb -D $PGDATA --no-locale --encoding=UTF8
+
 cat >> "$PGDATA/postgresql.conf" <<-EOF
 listen_addresses = 'localhost'
-port = 5432
+port = $PGPORT
 unix_socket_directories = '$PGHOST'
 EOF
 
@@ -46,7 +49,7 @@ echo "CREATE USER postgres SUPERUSER;" | postgres --single -E postgres
 echo "CREATE DATABASE postgres WITH OWNER postgres;" | postgres --single -E postgres
 fi
 
-postgres &
+# postgres &
 
 ## command to access the db after start
 # psql -h localhost postgres
@@ -54,7 +57,11 @@ postgres &
 ## command to kill the db 
 # pg_ctl -D ./db stop
 
-trap "pg_ctl -D ./db stop" EXIT
+# trap "pg_ctl -D ./db stop" EXIT
+
+
+
+
 
     '';
 }
