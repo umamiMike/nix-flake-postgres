@@ -1,6 +1,13 @@
+## nix flake for developing local PostgreSQL
+
 This is a barebones implementation of a nix flake with a PostgreSQL db.
 
-I just dont like sharing the db with the various projects I might have running my system, and I dont necessarily need docker as a dependency for many things.
+- I didnt want the abstraction of a docker container.
+- I didnt want to have a systemwide installation.  I can add this, with customization, and have multiple db servers running.
+
+[![asciicast](https://asciinema.org/a/PZHsbs0OaGXe5ak918QczxhnD.svg)](https://asciinema.org/a/PZHsbs0OaGXe5ak918QczxhnD)
+
+
 
 1. install nix
 
@@ -16,6 +23,7 @@ sh <(curl -L https://nixos.org/nix/install)
 ```sh
 psql -h localhost postgres
 ```
+
 
 ## NOTES
 
