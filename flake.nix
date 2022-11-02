@@ -1,8 +1,6 @@
 {
   description = "A very basic flake";
 
-
-
  inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
@@ -38,15 +36,15 @@ EOF
   echo "CREATE DATABASE postgres WITH OWNER postgres;" | postgres --single -E postgres
   fi
 
-  # postgres &
+# postgres &
 
-  ## command to access the db after start
-  # psql -h localhost postgres
+## command to access the db after start
+# psql -h localhost postgres
 
-  ## command to kill the db 
-  # pg_ctl -D ./db stop
+## command to kill the db 
+# pg_ctl -D ./db stop
 
-  # trap "pg_ctl -D ./db stop" EXIT
+# trap "pg_ctl -D ./db stop" EXIT
 '';
 };
 
